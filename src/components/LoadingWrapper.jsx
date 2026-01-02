@@ -9,38 +9,26 @@ export default function LoadingWrapper({ children }) {
   const { setIsFinished } = useLoading();
 
   useEffect(() => {
-    // Check if we've already shown the loader in this session
-    const hasVisited = sessionStorage.getItem("hasVisited");
-
-    if (hasVisited) {
-      setIsLoading(false);
-      setIsFinished(true);
-      document.body.style.overflow = "unset";
-      return;
-    }
-
     const handleLoad = () => {
-      // Reduce artificial delay from 3500ms to 800ms
       setTimeout(() => {
         setIsExiting(true);
-        sessionStorage.setItem("hasVisited", "true");
 
-        // Wait for removal animation (1000ms)
         setTimeout(() => {
           setIsLoading(false);
           setIsFinished(true);
           document.body.style.overflow = "unset";
         }, 1000);
-      }, 1000);
+      }, 3500);
     };
 
+    // Disable scroll while loading
     document.body.style.overflow = "hidden";
 
     if (document.readyState === "complete") {
       handleLoad();
     } else {
       window.addEventListener("load", handleLoad);
-      const timeout = setTimeout(handleLoad, 3000); // Safety fallback
+      const timeout = setTimeout(handleLoad, 5000);
       return () => {
         window.removeEventListener("load", handleLoad);
         clearTimeout(timeout);
