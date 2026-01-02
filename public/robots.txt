@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://loan.remitout.com
+
+# Sitemaps
+Sitemap: https://loan.remitout.com/sitemap.xml
